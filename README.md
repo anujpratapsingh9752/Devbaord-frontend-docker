@@ -1,44 +1,108 @@
-# DevBoard — Fundamentals (UI only)
+# 🚀 Devboard Frontend (Vite + Docker)
 
-The DevBoard front end, running **standalone** with no backend. This is the
-`fundamentals` branch: it teaches the React UI in isolation — layout shell,
-routing, TanStack Query, the kanban board, the command bar, dark mode — before
-any services are introduced.
+This is a frontend project built using **Vite + Node.js**.
 
-All data comes from an in-memory mock store (`src/mock/store.js`). Creating
-tasks and dragging cards between kanban columns works for the lifetime of the
-page (state resets on refresh). The `advanced` branch swaps this mock layer for
-a real **Go + Postgres** backend without changing any UI component.
+⚠️ Note: The original application code is taken from an open-source project.  
+I have not written the full application logic.  
+My contribution in this project is focused on **Dockerization and environment setup**.
 
-## Run it
+---
 
-```bash
-npm install
-npm run dev      # http://localhost:5173
-```
+## 👨‍💻 My Contribution
 
-```bash
-npm run build    # production build to dist/
-npm test         # Vitest component tests
-```
+In this project, I have:
 
-## What's here
+- Created a Dockerfile
+- Built Docker image from the application
+- Created and managed Docker container
+- Configured port mapping (5173:5173)
+- Learned and implemented Docker networking basics
+- Ran and tested the application inside container
 
-```
-src/
-├── components/
-│   ├── layout/     AppShell · Sidebar · Topbar · CommandBar · ProfileMenu · ThemeToggle
-│   ├── tasks/      TaskCard · TaskList · KanbanBoard · TaskCreateModal
-│   └── ui/         Button · Input · Badge · Avatar · Logo
-├── hooks/
-│   └── useTasks.js     React Query hooks, backed by the mock store
-├── mock/
-│   └── store.js        in-memory projects + tasks (the stand-in backend)
-├── pages/          DashboardPage · ProjectPage
-└── styles/         brand tokens, db-* component classes, dark-mode atmosphere
-```
+---
 
-## Not on this branch
+## 📦 Tech Stack
+- Vite
+- Node.js
+- Docker
 
-No login/auth, no AI assistant, no network calls — those live on `advanced`.
-The brand kit, component spec, and design tokens match the full DevBoard build.
+---
+
+## 📁 Project Structure
+
+Devboard/
+│
+├── public/
+│
+├── src/
+│   ├── components/
+│   ├── pages/
+│   ├── App.jsx
+│   └── main.jsx
+│
+├── Dockerfile
+├── package.json
+├── package-lock.json
+├── vite.config.js
+├── index.html
+└── README.md
+
+---
+
+## 🐳 Docker Setup
+
+### Build Image
+docker build -t devboard-frontend .
+
+### Run Container
+docker run -p 5173:5173 devboard-frontend
+
+---
+
+## 🌐 Access Application
+
+### 💻 Laptop Browser
+http://localhost:5173
+
+### 📱 Mobile (Same Wi-Fi Network)
+http://YOUR_LAPTOP_IP:5173
+
+Example:
+http://10.227.128.1:5173
+
+---
+
+## ⚙️ Important Concept (Docker Networking)
+
+npm run dev -- --host 0.0.0.0 --port 5173
+
+### Why this is used?
+- localhost ❌ → only container ke andar access
+- 0.0.0.0 ✅ → allows external access (laptop + mobile)
+
+---
+
+## 🔗 Connectivity Flow
+
+Docker Container  
+→ Vite Dev Server (0.0.0.0:5173)  
+→ Docker Port Mapping (5173:5173)  
+→ Laptop → http://localhost:5173  
+→ Mobile → http://IP:5173  
+
+---
+
+## 👨‍💻 Author
+
+Anuj Pratap Singh  
+GitHub: https://github.com/anujpratapsingh9757  
+
+---
+
+## 🚀 Learning Outcome
+
+This project helped me understand:
+- Docker basics
+- Containerization of frontend apps
+- Port mapping
+- Networking in Docker
