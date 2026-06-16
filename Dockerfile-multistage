@@ -1,0 +1,34 @@
+# This is a builder stage
+FROM node:24 AS builder
+
+# This is a container working directory
+WORKDIR /app
+
+# Copy code local to container directory
+COPY . .
+
+# Install packages for runnig application
+RUN npm install 
+
+# Take local src then optimize,compress and make production ready in dist/ directory
+RUN npm run build
+
+#------------------------stage-1---------------------------
+
+# This is a runner stage 
+FROM node:24-alpine AS runner
+
+# This is working directory
+WORKDIR /app
+
+# json file copy in current runner directory
+COPY package.json .
+
+# Install vite 
+RUN npm install -g vite
+
+# Take builder stage /app/dist folder and copy to ./dist container current folder
+COPY --from=builder /app/dist ./dist
+
+# Run node application this cmd
+CMD [ "npm","run","preview","--","--host","0.0.0.0","--port","5173" ]
