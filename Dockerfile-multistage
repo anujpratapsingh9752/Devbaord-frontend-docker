@@ -1,7 +1,7 @@
 # This is a builder stage
 FROM node:24 AS builder
 
-# This is a container working directory
+# This is container working directory
 WORKDIR /app
 
 # Copy code local to container directory
