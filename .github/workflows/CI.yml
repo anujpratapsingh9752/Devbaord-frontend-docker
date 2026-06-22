@@ -4,6 +4,29 @@ on:
     branches: [master]
 
 jobs:
+
+  Code-lint:
+    runs-on: ubuntu-latest
+    steps:
+    # Step 1: Download the repository code onto the runner
+      - name: Checkout Repository
+        uses: actions/checkout@v7
+
+     # Step 2: Install Node.js and configure package caching
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm' # Speeds up subsequent runs by caching node_modules
+
+      # Step 3: Clean install project dependencies
+      - name: Install Dependencies
+        run: npm ci
+
+      # Step 4: Execute the linter script
+      - name: Execute Linter
+        run: npm run lint
+          
   Build-and-push:
     runs-on: ubuntu-latest
     steps:
