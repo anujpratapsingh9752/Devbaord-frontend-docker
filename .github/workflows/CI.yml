@@ -22,7 +22,7 @@ jobs:
       # Step 3: Clean install project dependencies
       - name: Install Dependencies
         run: npm ci
-
+        
       # Step 4: Execute the linter script
       - name: Execute Linter
         run: npm run lint
